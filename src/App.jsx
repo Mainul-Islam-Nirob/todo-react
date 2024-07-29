@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Footer from "./Components/Footer"
+import Footer from "./Components/Footer.jsx"
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { v4 as uuidv4 } from 'uuid';

@@ -22,6 +22,8 @@ function App() {
   useEffect(() => {
     if (todos.length) {
       localStorage.setItem("todos", JSON.stringify(todos));
+    }else {
+      localStorage.clear();  
     }
   }, [todos]);
  

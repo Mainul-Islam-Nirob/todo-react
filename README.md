@@ -22,14 +22,14 @@ The final output:
 
 ### Links
 
-Live Site URL: [Live site of the challenge hosted here](https://mainul-islam-nirob.github.io/todo-react/)
-
+Live Site URL:[See live app here](https://mainul-islam-nirob.github.io/todo-react/)
 
 ### Built with
 
 - HTML5
 - Tailwind CSS
 - React
+- Local Storage
 
 ## Author
 

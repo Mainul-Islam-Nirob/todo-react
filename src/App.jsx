@@ -9,6 +9,8 @@ function App() {
   const [todo, setTodo] = useState("")
   const [todos, setTodos] = useState([])
   const [showFinished, setshowFinished] = useState(true)
+  const [editMode, setEditMode] = useState(false);
+  const [editId, setEditId] = useState(null);
 
   useEffect(() => {
     const storedTodos = localStorage.getItem("todos");
@@ -30,15 +32,12 @@ function App() {
   
   
 
-
-  const handleEdit = (e, id)=>{ 
-    let t = todos.filter(i=>i.id === id) 
-    setTodo(t[0].todo)
-    let newTodos = todos.filter(item=>{
-      return item.id!==id
-    }); 
-    setTodos(newTodos) 
-  }
+  const handleEdit = (e, id) => {
+      setEditMode(true);
+      setEditId(id);
+      const taskToEdit = todos.find(item => item.id === id);
+      setTodo(taskToEdit.todo);
+  };
 
   const handleDelete= (e, id)=>{  
     let newTodos = todos.filter(item=>{
@@ -48,8 +47,21 @@ function App() {
   }
 
   const handleAdd= ()=>{
-    setTodos([...todos, {id: uuidv4(), todo, isCompleted: false}])
-    setTodo("") 
+    const existingTodoIndex = todos.findIndex(item => item.id === editId);
+
+    if (existingTodoIndex !== -1) {
+      // Replace existing todo
+      const newTodos = [...todos];
+      newTodos[existingTodoIndex].todo = todo;
+      setTodos(newTodos);
+      setEditMode(false);
+      setEditId(null);
+    } else {
+      // Add new todo
+      setTodos([...todos, { id: uuidv4(), todo, isCompleted: false }]);
+    }
+  
+    setTodo("");
   }
   
   const handleChange= (e)=>{ 
@@ -74,9 +86,10 @@ function App() {
         <h1 className='font-bold text-center text-3xl'>iTask - Manage your todos at one place</h1>
          <div className="addTodo my-5 flex flex-col gap-4">
           <h2 className='text-2xl font-bold'>Add a Todo</h2>
+        
           <div className="flex">
-
           <input  onChange={handleChange} value={todo} type="text" className='w-full rounded-full px-5 py-1' />
+          
           <button onClick={handleAdd} disabled={todo.length<=3} className='bg-violet-800 mx-2 rounded-full hover:bg-violet-950 disabled:bg-violet-500 p-4 py-2 text-sm font-bold text-white'>Save</button>
           </div>
          </div>
@@ -94,9 +107,11 @@ function App() {
             <div className={item.isCompleted?"line-through":""}>{item.todo}</div>
             </div>
             <div className="buttons flex h-full">
+           
               <button onClick={(e)=>handleEdit(e, item.id)} className='bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1'>
                 <FaEdit /> 
               </button>
+      
               <button onClick={(e)=>{handleDelete(e, item.id)}} className='bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1'>
                 <AiFillDelete /> 
               </button>

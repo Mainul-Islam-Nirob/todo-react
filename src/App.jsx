@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Navbar from "./Components/Navbar"
+import Footer from "./Components/Footer"
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { v4 as uuidv4 } from 'uuid';
@@ -89,9 +89,8 @@ function App() {
 
   return (
     < >
-    <Navbar/> 
-       <div className="mx-3 md:container md:mx-auto my-5 rounded-xl p-5 bg-violet-100 min-h-[80vh] md:w-[35%]">
-        <h1 className='font-bold text-center text-3xl'>iTask - Manage your todos at one place</h1>
+       <div className="mx-3 md:container md:mx-auto my-5 rounded-xl p-5 bg-violet-100 h-[94vh] md:w-[45%] overflow-hidden">
+        <h1 className='font-bold text-center text-3xl'><span className='text-violet-900 cursor-pointer'>iTask</span> - Manage your todos at one place</h1>
          <div className="addTodo my-5 flex flex-col gap-4">
           <h2 className='text-2xl font-bold'>Add a Todo</h2>
         
@@ -105,7 +104,7 @@ function App() {
          <label className='mx-2' htmlFor="show">Show Finished</label> 
          <div className='h-[1px] bg-black opacity-15 w-[90%] mx-auto my-2'></div>
          <h2 className='text-2xl font-bold'>Your Todos</h2>
-         <div className="todos">
+         <div className="mt-2 todos overflow-hidden overflow-y-auto h-fit max-h-[50vh]">
           {todos.length ===0 && <div className='m-5'>No Todos to display</div> }
           {todos.map(item=>{
  
@@ -129,6 +128,8 @@ function App() {
          </div>
         
        </div>
+     
+       <Footer/>
     </>
   )
 }

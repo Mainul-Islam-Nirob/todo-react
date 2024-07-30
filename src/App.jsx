@@ -5,6 +5,7 @@ import TodoList from './Components/TodoList';
 import TodoFilter from './Components/TodoFilter';
 import Footer from "./Components/Footer";
 import { v4 as uuidv4 } from 'uuid';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   const [todo, setTodo] = useState("");
@@ -74,19 +75,28 @@ function App() {
     };
   
     return (
-      <div className="mx-3 md:container md:mx-auto my-5 rounded-xl p-8 bg-violet-100 h-[94vh] md:w-[45%] overflow-hidden">
-        <Header />
-        <TodoInput handleAdd={handleAdd} todo={todo} setTodo={setTodo} />
-        <TodoFilter showFinished={showFinished} toggleCompleted={toggleCompleted} />
-        <TodoList
-          todos={todos}
-          showFinished={showFinished}
-          handleCheckbox={handleCheckbox}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-        />
-        <Footer />
-      </div>
+      <BrowserRouter basename="todo-react">
+        <Routes>
+          <Route 
+          path="/"
+          element={
+            <div className="mx-3 md:container md:mx-auto my-5 rounded-xl p-8 bg-violet-100 h-[94vh] md:w-[45%] overflow-hidden">
+              <Header />
+              <TodoInput handleAdd={handleAdd} todo={todo} setTodo={setTodo} />
+              <TodoFilter showFinished={showFinished} toggleCompleted={toggleCompleted} />
+              <TodoList
+                todos={todos}
+                showFinished={showFinished}
+                handleCheckbox={handleCheckbox}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+              <Footer />
+            </div>
+          }
+          />
+        </Routes>
+      </BrowserRouter>
     );
   }
   

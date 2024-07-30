@@ -3,6 +3,13 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/todo-react/",
+  base: '/todo-react/',
   plugins: [react()],
+  build: {
+
+    outDir: 'dist',
+
+    sourcemap: true,
+
+  },
 })
